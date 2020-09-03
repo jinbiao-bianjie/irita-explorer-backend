@@ -22,13 +22,13 @@ export const cfg = {
     env: NODE_ENV,
     disableLog:Boolean(DisableLog=='true'),
     dbCfg: {
-        user: DB_USER,
-        psd: DB_PASSWD,
-        dbAddr: DB_ADDR,
-        dbName: DB_DATABASE,
+        user: 'iris',
+        psd: 'irispassword',
+        dbAddr: '10.1.4.185:27018',
+        dbName: 'explorer-sync',
     },
     serverCfg:{
-        lcdAddr:LCD_ADDR
+        lcdAddr:'http://109.244.70.42:1317'
     },
     taskCfg:{
         interval:{

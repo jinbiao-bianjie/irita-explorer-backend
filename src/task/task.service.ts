@@ -59,8 +59,8 @@ export class TasksService {
         this.taskDispatchService.taskDispatchFaultTolerance();
     }
     //@Cron('1 * * * * *')
-    @Cron(cfg.taskCfg.executeTime.identity)
-    /*@Interval(5000)*/
+    // @Cron(cfg.taskCfg.executeTime.identity)
+    @Interval(5000)
     async syncIdentity() {
         this.handleDoTask(TaskEnum.identity,this.identityTaskService.doTask)
     }

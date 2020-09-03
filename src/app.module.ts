@@ -23,7 +23,7 @@ import { IdentityTaskModule } from './module/identity.task.module';
 import { IdentityModule } from './module/identity.module';
 
 console.log(cfg);
-const url: string = `mongodb://${cfg.dbCfg.user}:${cfg.dbCfg.psd}@${cfg.dbCfg.dbAddr}/${cfg.dbCfg.dbName}`;
+const url: string = `mongodb://${cfg.dbCfg.user}:${cfg.dbCfg.psd}@${cfg.dbCfg.dbAddr}/${cfg.dbCfg.dbName}?retryWrites=false`;
 const params = {
     imports: [
         MongooseModule.forRoot(url),

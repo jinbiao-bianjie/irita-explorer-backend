@@ -54,8 +54,8 @@ IdentitySchema.statics = {
       return blockHeight
   },
 
-  async insertIdentityInfo(IdentityInfo) {
-      await  this.insertMany(IdentityInfo,{ ordered: false })
+  async insertIdentityInfo(IdentityInfo,session) {
+      await  this.insertMany(IdentityInfo,{ ordered: false },{session})
   },
   // base information
   async updateIdentityInfo(updateIdentityData) {

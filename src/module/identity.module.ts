@@ -11,15 +11,15 @@ import { CertificateSchema } from '../schema/certificate.schema';
     MongooseModule.forFeature([{
       name: 'Identity',
       schema: IdentitySchema,
-      collection: 'ex_sync_identity'
+      collection: 'ex_sync_identity_1'
     },{
       name:'Pubkey',
       schema:PubkeySchema,
-      collection: 'ex_sync_identity_pubkey'
+      collection: 'ex_sync_identity_pubkey_1'
     },{
       name:'Certificate',
       schema: CertificateSchema,
-      collection: 'ex_sync_identity_certificate'
+      collection: 'ex_sync_identity_certificate_1'
     }])
   ],
   providers:[IdentityService],

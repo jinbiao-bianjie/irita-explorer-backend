@@ -16,8 +16,8 @@ export const CertificateSchema = new mongoose.Schema({
 CertificateSchema.index({id: 1,'msg_index':1},{unique: true})
 
 CertificateSchema.statics = {
-  async insertCertificate(certificateData){
-    await this.insertMany(certificateData,{ ordered: false })
+  async insertCertificate(certificateData,session){
+    await this.insertMany(certificateData,{ ordered: false },{session})
   },
   async queryCertificate(query:IdentityPubKeyAndCertificateReqDto):Promise<IListStruct>{
     const result: IListStruct = {}

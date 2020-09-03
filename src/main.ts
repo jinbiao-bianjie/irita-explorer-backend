@@ -4,16 +4,16 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as express from 'express';
 
 import { MyLogger } from './logger/logger';
-import { LoggerMiddleware } from './middleware/logger.middleware'; 
-import { LoggerInterceptor } from './interceptor/logger.interceptor'; 
+import { LoggerMiddleware } from './middleware/logger.middleware';
+import { LoggerInterceptor } from './interceptor/logger.interceptor';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.enableCors();
-    app.use(LoggerMiddleware);
-    app.useGlobalInterceptors(new LoggerInterceptor());
+    //app.use(LoggerMiddleware);
+    //app.useGlobalInterceptors(new LoggerInterceptor());
     setUpSwagger(app);
     await app.listen(3000);
 }

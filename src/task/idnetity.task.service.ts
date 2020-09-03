@@ -65,7 +65,6 @@ export class IdentityTaskService {
         }
         return certificateData
     }
-
     handleUpdateIdentity(item: any, value: any) {
         let updateData: IUpDateIdentityCredentials
         if (value.msg.credentials) {
@@ -134,11 +133,54 @@ export class IdentityTaskService {
                 }
             })
         })
-        await this.identityTaskModel.insertIdentityInfo(identityInsertData)
-        await this.pubkeyModel.insertPubkey(pubkeyInsertData)
-        await this.certificateModel.insertCertificate(certificateInsertData)
-        identityUpdateData.forEach(async (item: IUpDateIdentityCredentials) => {
-            await this.identityTaskModel.updateIdentityInfo(item)
-        })
-    }
+        const session = await this.identityTaskModel.startSession()
+        session.startTransaction()
+        try {
+          await this.pubkeyModel.insertPubkey(pubkeyInsertData,session)
+          await this.identityTaskModel.insertIdentityInfo(identityInsertData,session)
+          await this.certificateModel.insertCertificate(certificateInsertData,session)
+         /* identityUpdateData.forEach( async (item:IUpDateIdentityCredentials) => {
+              await this.identityTaskModel.updateIdentityInfo(item)
+          })*/
+        await session.commitTransaction();
+            session.endSession()
+            console.log("+++++++++++++++++++++++++++++++++++++++++")
+      }catch (e) {
+            await session.abortTransaction()
+            session.endSession()
+            console.log(e,"===========================================")
+      }finally {
+            // session.endSession()
+            console.log('------------------------')
+        }
+  }
 }
+// const session = await mongoose.startSession();
+// session.startTransaction();
+/*
+try {
+    let hobbyItem = new SysHobbyModel({
+        'label': label,
+        'img': img
+    })
+    let hobby_id = hobbyItem['_id'];
+    let hobyyListItem = [];
+    item.forEach((ele) => {
+        let name = ele['name'];
+        let sys_language_id = ele['sys_language_id'];
+        let abb = ele['abb'];
+        hobyyListItem.push(
+          {
+              'hobby_id': hobby_id,
+              'sys_language_id': sys_language_id,
+              'abb': abb,
+              'name': name
+          }
+        )
+    });
+// const opts = { session, new: true };
+// const A = await hobbyItem.save(opts);
+// const B = await SysHobbyListModel.insertMany(hobyyListItem, opts);
+// await session.commitTransaction();
+// session.endSession();
+*/

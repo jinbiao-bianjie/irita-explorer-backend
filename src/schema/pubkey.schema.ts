@@ -16,8 +16,8 @@ export const PubkeySchema = new mongoose.Schema({
 PubkeySchema.index({id: 1,'msg_index':1},{unique: true})
 
 PubkeySchema.statics = {
-    async insertPubkey (pubkey) {
-        await this.insertMany(pubkey,{ ordered: false })
+    async insertPubkey (pubkey,session) {
+        await this.insertMany(pubkey,{ ordered: false },{session})
     },
     async queryPubkeyList(query:IdentityPubKeyAndCertificateReqDto) :Promise<IListStruct>  {
         const result: IListStruct = {}
